@@ -18,12 +18,16 @@ object SbtPluginProjects extends Build with rewire.RewireLocalDepsStartup {
     ghpages))
 
 
-  lazy val git = RootProject(uri("git://github.com/sbt/sbt-git-plugin.git"))
+  lazy val git = ghProject("sbt-git-plugin")
   //lazy val appengine = RootProject(uri("git://github.com/sbt/sbt-appengine.git"))
-  lazy val assembly = RootProject(uri("git://github.com/sbt/sbt-assembly.git"))
-  lazy val nativePackager = RootProject(uri("git://github.com/sbt/sbt-native-packager.git"))
-  //lazy val dirtyMoney = RootProject(uri("git://github.com/sbt/sbt-dirty-money.git"))
-  //lazy val twt = RootProject(uri("git://github.com/sbt/sbt-twt.git"))
-  lazy val gpg = RootProject(uri("git://github.com/sbt/xsbt-gpg-plugin.git"))
-  lazy val ghpages = RootProject(uri("git://github.com/jsuereth/xsbt-ghpages-plugin.git"))
+  lazy val assembly = ghProject("sbt-assembly")
+  lazy val nativePackager = ghProject("sbt-native-packager")
+  //lazy val dirtyMoney = ghProject("sbt-dirty-money.git")
+  //lazy val twt = ghProject("sbt-twt")
+  lazy val gpg = ghProject("xsbt-gpg-plugin")
+  lazy val ghpages = ghProject("xsbt-ghpages-plugin", "jsuereth")
+  lazy val sbtOneJar = ghProject("sbt-one-jar")
+
+  def ghProject(repo: String, user: String = "sbt") = 
+    RootProject(uri("git://github.com/%s/%s.git".format(user, repo)))
 }
